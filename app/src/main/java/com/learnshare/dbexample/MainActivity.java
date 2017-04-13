@@ -1,5 +1,6 @@
 package com.learnshare.dbexample;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -7,11 +8,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
 
-    private Button btnCreateDatabase ;
+    private Button  btnCreateDatabase,btnInsertData;
 
     private MySqliteOpenHelper mySqliteOpenHelper ;
 
@@ -43,5 +45,49 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        btnInsertData = (Button) findViewById(R.id.btnInsertData);
+
+        btnInsertData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                insertData();
+            }
+        });
+
+
     }
+
+    private void insertData()
+    {
+        String name = "john";
+
+        int id = 1 ;
+
+        String table_name = "employee";
+
+        ContentValues values = new ContentValues();
+
+        values.put("id",id);
+
+        values.put("name",name);
+
+        long rowId = 0 ;
+
+        if(mDatabase!=null) {
+            rowId = mDatabase.insert(table_name, null, values);
+            if (rowId != -1) {
+                Toast.makeText(MainActivity.this, "Inserted Successfully !!!", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(MainActivity.this, "Error inserting !!!", Toast.LENGTH_SHORT).show();
+            }
+        }
+        else {
+            Toast.makeText(MainActivity.this, "Database is null!!!", Toast.LENGTH_SHORT).show();
+        }
+
+
+    }
+
+
 }
