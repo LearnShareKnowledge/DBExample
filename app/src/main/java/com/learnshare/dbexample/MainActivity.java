@@ -13,7 +13,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
 
-    private Button  btnCreateDatabase,btnInsertData, btnUpdateData;
+    private Button  btnCreateDatabase,btnInsertData, btnUpdateData,btnDeleteRow ,btnDeleteTable;
 
     private MySqliteOpenHelper mySqliteOpenHelper ;
 
@@ -64,10 +64,64 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        btnDeleteRow = (Button) findViewById(R.id.btnDeleteRow);
+
+        btnDeleteRow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // delete a row
+
+                deleteRow(1);
+
+            }
+        });
+
+        btnDeleteTable = (Button) findViewById(R.id.btnDeleteTable);
+
+        btnDeleteTable.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                //delete a table
+
+                deleteTable("employee");
+
+
+            }
+        });
+
 
 
 
     }
+
+    private void deleteTable(String table_name)
+    {
+        if(mDatabase!=null)
+        mDatabase.execSQL("drop table if exists "+ table_name + " ;");
+        else
+            Toast.makeText(MainActivity.this,"Database is null ",Toast.LENGTH_SHORT).show();
+    }
+
+    private void deleteRow(int i)
+    {
+        if(mDatabase!=null) {
+            String table_name = "employee";
+
+            int numberofRows = mDatabase.delete(table_name, "id=" + i, null);
+
+            if (numberofRows > 0) {
+                Toast.makeText(MainActivity.this, "Delete Successful", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(MainActivity.this, "Delete Unsuccessful", Toast.LENGTH_SHORT).show();
+            }
+        }
+        else
+        {
+            Toast.makeText(MainActivity.this,"Database is null ",Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
     private void updateData(int id )
     {

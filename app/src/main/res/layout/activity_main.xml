@@ -24,4 +24,31 @@
         android:layout_below="@id/btnCreateDatabase"
         />
 
+    <Button
+        android:id="@+id/btnUpdateData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Update Data"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/btnInsertData"
+        />
+
+    <Button
+        android:id="@+id/btnDeleteRow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete row"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/btnUpdateData"
+        />
+
+    <Button
+        android:id="@+id/btnDeleteTable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete table"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/btnDeleteRow"
+        />
+
 </RelativeLayout>
