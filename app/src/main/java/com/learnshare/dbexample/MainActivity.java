@@ -13,7 +13,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
 
-    private Button  btnCreateDatabase,btnInsertData;
+    private Button  btnCreateDatabase,btnInsertData, btnUpdateData;
 
     private MySqliteOpenHelper mySqliteOpenHelper ;
 
@@ -55,8 +55,45 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        btnUpdateData = (Button) findViewById(R.id.btnUpdateData);
+
+        btnUpdateData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                updateData(1);
+            }
+        });
+
+
+
 
     }
+
+    private void updateData(int id )
+    {
+        String table_name = "employee";
+
+        ContentValues values = new ContentValues();
+
+        values.put("name","Steve");
+
+        if(mDatabase!=null) {
+
+            int numberOfRows = mDatabase.update(table_name, values, "id=" + id, null);
+
+            if (numberOfRows > 0) {
+                Toast.makeText(MainActivity.this, "Update Successful", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(MainActivity.this, "Error  updating", Toast.LENGTH_SHORT).show();
+            }
+        }
+        else
+        {
+            Toast.makeText(MainActivity.this,"Database is not initialized",Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
 
     private void insertData()
     {
@@ -74,15 +111,22 @@ public class MainActivity extends AppCompatActivity {
 
         long rowId = 0 ;
 
-        if(mDatabase!=null) {
+        if(mDatabase!=null)
+        {
             rowId = mDatabase.insert(table_name, null, values);
-            if (rowId != -1) {
+
+            if (rowId != -1)
+            {
                 Toast.makeText(MainActivity.this, "Inserted Successfully !!!", Toast.LENGTH_SHORT).show();
-            } else {
+            }
+            else
+            {
                 Toast.makeText(MainActivity.this, "Error inserting !!!", Toast.LENGTH_SHORT).show();
             }
         }
-        else {
+        else
+
+        {
             Toast.makeText(MainActivity.this, "Database is null!!!", Toast.LENGTH_SHORT).show();
         }
 
